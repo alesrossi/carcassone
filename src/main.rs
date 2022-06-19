@@ -11,7 +11,7 @@ fn main() {
         .insert_resource(WindowDescriptor{
             title: "Carcassone Simulator".to_string(),
             width: 1600.,
-            height: 900.,
+            height: 1100.,
             ..Default::default()
         })
         .add_plugins(DefaultPlugins)

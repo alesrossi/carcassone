@@ -4,7 +4,7 @@ use std::str::FromStr;
 use bevy::prelude::*;
 
 const TILE_SIZE: f32 = 65.;
-const SET_RADIUS: i32 = 11;
+const SET_RADIUS: i32 = 14;
 
 #[derive(Component)]
 pub struct Tile {
@@ -84,9 +84,9 @@ fn spawn_tiles(
             let mut values_checked = LinkedList::new();
             loop {
                 //info!("{:?}", values_checked);
-                val = rng.gen_range(0..19);
+                val = rng.gen_range(0..types.len());
                 while values_checked.contains(&val) {
-                    val = rng.gen_range(0..19);
+                    val = rng.gen_range(0..types.len());
                 }
                 // if tiles.contains_key(&(i - 1, j)) {
                 //     println!("left: {:?}", tiles.get(&(i - 1, j)).unwrap());
@@ -115,9 +115,6 @@ fn spawn_tiles(
                 // println!("current: {:?}", types[val].connections);
                 tiles.insert((i, j), types[val].connections.clone());
                 break;
-            }
-            if val == 99 {
-                println!("impossible");
             }
             let image = asset_server.load(types[val].name);
             commands.spawn_bundle(SpriteBundle {
