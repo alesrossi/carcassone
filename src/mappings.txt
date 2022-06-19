@@ -36,3 +36,9 @@
 36.png City:City:City:City
 37.png City:City:City:City
 38.png City:City:City:City
+39.png Field:Field:Field:Field
+40.png Field:Field:Field:Field
+41.png Field:Field:Field:Field
+42.png Field:Road:Field:Road
+43.png Road:Field:Road:Field
+44.png Field:Road:Field:Road

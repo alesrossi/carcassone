@@ -83,19 +83,10 @@ fn spawn_tiles(
             let mut val;
             let mut values_checked = LinkedList::new();
             loop {
-                //info!("{:?}", values_checked);
                 val = rng.gen_range(0..types.len());
                 while values_checked.contains(&val) {
                     val = rng.gen_range(0..types.len());
                 }
-                // if tiles.contains_key(&(i - 1, j)) {
-                //     println!("left: {:?}", tiles.get(&(i - 1, j)).unwrap());
-                // }
-                // if tiles.contains_key(&(i, j - 1)) {
-                //     println!("bottom: {:?}", tiles.get(&(i, j - 1)).unwrap());
-                // }
-                // println!("current: {:?}", types[val].connections);
-                //info!("{:?}", types[val].connections);
                 if tiles.contains_key(&(i - 1, j)) &&
                     tiles.get(&(i - 1, j)).unwrap()[1] != types[val].connections[3] {
                     values_checked.push_back(val);
@@ -106,13 +97,6 @@ fn spawn_tiles(
                     values_checked.push_back(val);
                     continue;
                 }
-                // if tiles.contains_key(&(i - 1, j)) {
-                //     println!("left: {:?}", tiles.get(&(i - 1, j)).unwrap());
-                // }
-                // if tiles.contains_key(&(i, j - 1)) {
-                //     println!("bottom: {:?}", tiles.get(&(i, j - 1)).unwrap());
-                // }
-                // println!("current: {:?}", types[val].connections);
                 tiles.insert((i, j), types[val].connections.clone());
                 break;
             }

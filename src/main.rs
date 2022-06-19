@@ -1,6 +1,4 @@
 mod tile;
-mod tileset;
-mod utils;
 
 use bevy::prelude::*;
 use crate::tile::TilePlugin;
