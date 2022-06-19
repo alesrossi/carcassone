@@ -17,6 +17,7 @@ enum Connection {
     Road,
     Field,
     City,
+    River
 }
 
 impl FromStr for Connection {
@@ -28,6 +29,7 @@ impl FromStr for Connection {
             "Road"  => Ok(Connection::Road),
             "Field"  => Ok(Connection::Field),
             "City"  => Ok(Connection::City),
+            "River"  => Ok(Connection::River),
             _      => Err(()),
         }
     }
@@ -74,17 +76,16 @@ fn spawn_tiles(
     asset_server: Res<AssetServer>,
     types: Res<Vec<Type>>
 ){
-    // let mut tiles: Vec<Vec<Vec<Connection>>> = Vec::new();
     let mut tiles: HashMap<(i32, i32), Vec<Connection>> = HashMap::new();
     let mut rng = thread_rng();
     for i in -SET_RADIUS..SET_RADIUS {
-
         for j in -SET_RADIUS..SET_RADIUS {
             let mut val;
             let mut values_checked = LinkedList::new();
             loop {
                 val = rng.gen_range(0..types.len());
                 while values_checked.contains(&val) {
+                    if values_checked.len() == types.len() { warn!("Impossible: {:?}, {:?}", tiles.get(&(i - 1, j)).unwrap()[1],  tiles.get(&(i, j - 1)).unwrap()[0]) }
                     val = rng.gen_range(0..types.len());
                 }
                 if tiles.contains_key(&(i - 1, j)) &&
