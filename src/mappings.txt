@@ -15,3 +15,5 @@
 15.png City:Road:Road:Road
 16.png Road:Field:Road:Field
 17.png City:Road:Field:Road
+18.png Road:Road:Road:City
+19.png Road:City:City:Road

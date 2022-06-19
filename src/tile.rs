@@ -1,11 +1,10 @@
+use std::collections::{HashMap, LinkedList};
 use rand::prelude::*;
 use std::str::FromStr;
 use bevy::prelude::*;
 
-const TILE_SPRITE: &str = "tile.png";
-const MAPPINGS: &str = "mappings.txt";
 const TILE_SIZE: f32 = 65.;
-const SET_RADIUS: i32 = 100;
+const SET_RADIUS: i32 = 11;
 
 #[derive(Component)]
 pub struct Tile {
@@ -13,7 +12,7 @@ pub struct Tile {
     is_occupied: bool,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq)]
 enum Connection {
     Road,
     Field,
@@ -34,7 +33,7 @@ impl FromStr for Connection {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Type{
     name: &'static str,
     connections: Vec<Connection>,
@@ -75,11 +74,52 @@ fn spawn_tiles(
     asset_server: Res<AssetServer>,
     types: Res<Vec<Type>>
 ){
+    // let mut tiles: Vec<Vec<Vec<Connection>>> = Vec::new();
+    let mut tiles: HashMap<(i32, i32), Vec<Connection>> = HashMap::new();
     let mut rng = thread_rng();
     for i in -SET_RADIUS..SET_RADIUS {
+
         for j in -SET_RADIUS..SET_RADIUS {
-            let rng = rng.gen_range(0..16);
-            let image = asset_server.load(types[rng].name);
+            let mut val;
+            let mut values_checked = LinkedList::new();
+            loop {
+                //info!("{:?}", values_checked);
+                val = rng.gen_range(0..19);
+                while values_checked.contains(&val) {
+                    val = rng.gen_range(0..19);
+                }
+                // if tiles.contains_key(&(i - 1, j)) {
+                //     println!("left: {:?}", tiles.get(&(i - 1, j)).unwrap());
+                // }
+                // if tiles.contains_key(&(i, j - 1)) {
+                //     println!("bottom: {:?}", tiles.get(&(i, j - 1)).unwrap());
+                // }
+                // println!("current: {:?}", types[val].connections);
+                //info!("{:?}", types[val].connections);
+                if tiles.contains_key(&(i - 1, j)) &&
+                    tiles.get(&(i - 1, j)).unwrap()[1] != types[val].connections[3] {
+                    values_checked.push_back(val);
+                    continue;
+                }
+                if tiles.contains_key(&(i, j - 1)) &&
+                    tiles.get(&(i, j - 1)).unwrap()[0] != types[val].connections[2] {
+                    values_checked.push_back(val);
+                    continue;
+                }
+                // if tiles.contains_key(&(i - 1, j)) {
+                //     println!("left: {:?}", tiles.get(&(i - 1, j)).unwrap());
+                // }
+                // if tiles.contains_key(&(i, j - 1)) {
+                //     println!("bottom: {:?}", tiles.get(&(i, j - 1)).unwrap());
+                // }
+                // println!("current: {:?}", types[val].connections);
+                tiles.insert((i, j), types[val].connections.clone());
+                break;
+            }
+            if val == 99 {
+                println!("impossible");
+            }
+            let image = asset_server.load(types[val].name);
             commands.spawn_bundle(SpriteBundle {
                 texture: image.clone(),
                 transform: Transform {
