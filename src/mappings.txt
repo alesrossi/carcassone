@@ -71,8 +71,8 @@
 71.png Road:Road:Road:Road
 72.png City:Field:Field:Road
 73.png City:Road:Road:Road
-74.png Road:River:City:River
-75.png City:River:City:River
+74.png River:River:Field:River
+75.png Field:River:River:Field
 76.png City:Road:Road:Road
 77.png Field:Road:City:Road
 78.png Field:River:Field:Field
@@ -84,5 +84,3 @@
 84.png Road:River:Road:River
 85.png River:Field:Field:Field
 86.png Field:Field:River:Field
-87.png River:River:Field:River
-88.png Field:River:River:Field
