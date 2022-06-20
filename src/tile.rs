@@ -106,7 +106,7 @@ fn spawn_tiles(
                 texture: image.clone(),
                 transform: Transform {
                     translation: Vec3::new(i as f32 * TILE_SIZE, j as f32 * TILE_SIZE, 0.),
-                    scale: Vec3::new(0.54, 0.54, 0.1),
+                    scale: Vec3::new(0.51, 0.51, 0.1),
                     ..Default::default()
                 },
                 ..Default::default()
