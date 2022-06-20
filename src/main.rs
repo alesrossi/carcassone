@@ -1,4 +1,5 @@
 mod tile;
+mod wfc;
 
 use bevy::prelude::*;
 use crate::tile::TilePlugin;

@@ -9,6 +9,7 @@ const SET_RADIUS: i32 = 14;
 #[derive(Component)]
 pub struct Tile {
     coord: (f32, f32),
+    texture: &'static str,
     is_occupied: bool,
 }
 
@@ -17,7 +18,7 @@ enum Connection {
     Road,
     Field,
     City,
-    River
+    River,
 }
 
 impl FromStr for Connection {
@@ -37,8 +38,8 @@ impl FromStr for Connection {
 
 #[derive(Debug, Clone)]
 pub struct Type{
-    name: &'static str,
-    connections: Vec<Connection>,
+    pub name: &'static str,
+    pub connections: Vec<Connection>,
 }
 
 
@@ -70,6 +71,8 @@ fn set_types(
     }
     types
 }
+
+
 
 fn spawn_tiles(
     mut commands: Commands,
