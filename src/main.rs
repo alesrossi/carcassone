@@ -3,6 +3,7 @@ mod wfc;
 
 use bevy::prelude::*;
 use crate::tile::TilePlugin;
+use crate::wfc::WfcPlugin;
 
 fn main() {
     App::new()
@@ -15,6 +16,7 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(TilePlugin)
+        .add_plugin(WfcPlugin)
         .add_startup_system(setup)
         .run();
 }
